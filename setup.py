@@ -4,13 +4,13 @@ import os
 
 
 VERSION = '0.0.1'
-DESCRIPTION = 'my math quiz'
+DESCRIPTION = 'interesting math quiz'
 
 # Setting up
 setup(
     name="math_quizz",
     version=VERSION,
-    author="Ali",
+    author="ali",
     author_email="<nasiry.ali77@gmail.com>",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
