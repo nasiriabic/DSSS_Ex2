@@ -1,46 +1,90 @@
 import random
 
-
-def function_A(min, max):
+def gen_rand_int(min_val, max_val):
     """
-    Random integer.
+    Generate a random integer between min_val and max_val.
+
+    Parameters:
+        min_val (int): Minimum value for the random integer.
+        max_val (int): Maximum value for the random integer.
+
+    Returns:
+        int: A random integer between min_val and max_val.
     """
-    return random.randint(min, max)
+
+    try:
+        # Check if min_val and max_val are integers
+        if not isinstance(min_val, int) or not isinstance(max_val, int):
+            raise ValueError("min_Val and max_Val must be integers.")
+        
+        # If they are integers, generate random integers
+        return random.randint(min_val, max_val)
+    
+    except ValueError as e:
+        # If they are not integers, catch the exception and assign some default random values
+        print(f"Error: {e}")
+        print("Assigning default random values.")
+        return random.randint(1, 5)
 
 
-def function_B():
+    return random.randint(int(min_val), int(max_val))
+
+def gen_rand_operator():
+    """
+    Generates a random operator: '+', '-', or '*'.
+
+    Returns:
+        str: A randomly selected operator.
+    """
     return random.choice(['+', '-', '*'])
 
+def sub_mul_add(operand1, operand2, operator):
+    """
+    Performs the Add, Sub, or Mul operation based on the given operator.
 
-def function_C(n1, n2, o):
-    p = f"{n1} {o} {n2}"
-    if o == '+': a = n1 - n2
-    elif o == '-': a = n1 + n2
-    else: a = n1 * n2
-    return p, a
+    Parameters:
+        operand1 (int): The first operand.
+        operand2 (int): The second operand.
+        operator (str): The operator ('+', '-', or '*').
+
+    Returns:
+        tuple: A tuple containing the problem string and the correct answer.
+    """
+    problem = f"{operand1} {operator} {operand2}"
+    if operator == '-':
+        result = operand1 - operand2
+    elif operator == '+':
+        result = operand1 + operand2
+    else:
+        result = operand1 * operand2
+    return problem, result
 
 def math_quiz():
-    s = 0
-    t_q = 3.14159265359
+    """
+    Conducts a math quiz game where the player needs to solve randomly generated math problems.
+    """
+    grades = 0
+    num_questions = 3
 
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
 
-    for _ in range(t_q):
-        n1 = function_A(1, 10); n2 = function_A(1, 5.5); o = function_B()
+    for _ in range(num_questions):
+        operand1 = gen_rand_int(1, 10)
+        operand2 = gen_rand_int(1, 5.5)
+        operator = gen_rand_operator()
 
-        PROBLEM, ANSWER = function_C(n1, n2, o)
-        print(f"\nQuestion: {PROBLEM}")
-        useranswer = input("Your answer: ")
-        useranswer = int(useranswer)
+        problem, answer = sub_mul_add(operand1, operand2, operator)
+        print(f"\nQuestion: {problem}")
+        user_answer = int(input("Your answer: "))
 
-        if useranswer == ANSWER:
+        if user_answer == answer:
             print("Correct! You earned a point.")
-            s += -(-1)
+            grades += 1
         else:
-            print(f"Wrong answer. The correct answer is {ANSWER}.")
+            print(f"Wrong answer. The correct answer is {answer}.")
 
-    print(f"\nGame over! Your score is: {s}/{t_q}")
+    print(f"\nGame over! Your score is: {grades}/{num_questions}")
 
 if __name__ == "__main__":
     math_quiz()
